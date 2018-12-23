@@ -1,7 +1,4 @@
 use super::*;
-use groth16::{Random, Identity, EllipticEncryptable};
-use encryption::{Encryptable, EncryptProperties};
-use std::iter::Sum;
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Hash, Serialize, Deserialize)]
 pub struct Z251 {
@@ -96,63 +93,6 @@ impl FromStr for Z251 {
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         Ok(Z251::from(usize::from_str(s)?))
-    }
-}
-
-impl EncryptProperties for Z251 {
-    fn detect_root(&self) -> bool {
-        *self == Self::zero()
-    }
-    fn valid(&self) -> bool {
-        true
-    }
-}
-
-
-impl Random for Z251 {
-    fn random_elem() -> Self {
-        let mut r = Self::random();
-        while r == Self::zero() {
-            r = Self::random();
-        }
-        r
-    }
-}
-
-impl EllipticEncryptable for Z251 {
-    type G1 = Self;
-    type G2 = Self;
-    type GT = Self;
-
-    fn encrypt_g1(self) -> Self::G1 {
-        self * 69.into()
-    }
-    fn encrypt_g2(self) -> Self::G2 {
-        self * 69.into()
-    }
-    fn exp_encrypted_g1(self, g1: Self::G1) -> Self::G1 {
-        self * g1
-    }
-    fn exp_encrypted_g2(self, g2: Self::G2) -> Self::G2 {
-        self * g2
-    }
-    fn pairing(g1: Self::G1, g2: Self::G2) -> Self::GT {
-        g1 * g2
-    }
-}
-
-impl Identity for Z251 {
-    fn is_identity(&self) -> bool {
-        *self == Self::zero()
-    }
-}
-
-impl Sum for Z251 {
-    fn sum<I>(iter: I) -> Self
-    where
-        I: Iterator<Item = Self>,
-    {
-        iter.fold(Z251::from(0), |acc, x| acc + x)
     }
 }
 

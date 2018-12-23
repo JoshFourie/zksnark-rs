@@ -11,6 +11,7 @@ use super::field::z251::Z251;
 use super::field::{polynomial_division, powers, Field, FieldIdentity, Polynomial};
 use std::iter::{once, repeat, Sum};
 use std::ops::{Add, Div, Mul, Neg, Sub};
+use serde_json::to_string;
 
 pub mod circuit;
 pub mod coefficient_poly;
