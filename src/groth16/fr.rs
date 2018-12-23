@@ -1,9 +1,8 @@
-extern crate bn;
-extern crate rand;
 
-use self::bn::{Fr, Group, Gt, G1, G2};
+use bn::{Fr, Group, Gt, G1, G2};
 pub use super::*;
 use std::str::FromStr;
+use serde_derive::{Serialize, Deserialize};
 
 #[derive(Clone, Copy, Eq, PartialEq, Serialize, Deserialize)]
 pub struct FrLocal(Fr);

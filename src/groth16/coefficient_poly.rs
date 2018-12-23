@@ -1,5 +1,6 @@
 use super::*;
 use std::ops::Deref;
+use serde_derive::{Serialize, Deserialize};
 
 #[derive(Clone, PartialEq, Debug, Serialize, Deserialize)]
 pub struct CoefficientPoly<T> {

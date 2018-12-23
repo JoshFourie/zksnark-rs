@@ -5,13 +5,12 @@
 )]
 
 #[macro_use] extern crate itertools;
-
 #[macro_use] extern crate crunchy;
 
 extern crate serde;
+extern crate serde_derive;
 extern crate serde_json;
-
-#[macro_use] extern crate serde_derive;
+extern crate bn;
 
 pub mod encryption;
 pub mod field;
