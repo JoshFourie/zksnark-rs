@@ -6,7 +6,7 @@ version = "0.0.2"
 [dependencies]
 itertools = "0.6.0"
 rand = "~0.3.14"
-bn = { path = "../bn_pairing_rs" }
+bn = { github = "https://github.com/JoshFourie/zksnark-rs" }
 bigint = "4.4.0"
 crunchy = "0.2.1"
 serde = "1.0"
