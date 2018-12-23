@@ -1,7 +1,7 @@
 use super::*;
 use std::ops::Deref;
 
-#[derive(Clone, PartialEq, Debug)]
+#[derive(Clone, PartialEq, Debug, Serialize, Deserialize)]
 pub struct CoefficientPoly<T> {
     coeffs: Vec<T>,
 }

@@ -11,6 +11,7 @@ use super::field::z251::Z251;
 use super::field::{polynomial_division, powers, Field, FieldIdentity, Polynomial};
 use std::iter::{once, repeat, Sum};
 use std::ops::{Add, Div, Mul, Neg, Sub};
+use serde_json::to_string;
 
 pub mod circuit;
 pub mod coefficient_poly;
@@ -57,6 +58,7 @@ pub trait Identity {
 
 /// The Quadratic Arithmetic Program (QAP) that represents an arithmetic
 /// circuit.
+#[derive(Serialize, Deserialize)]
 pub struct QAP<P> {
     u: Vec<P>,
     v: Vec<P>,
@@ -102,6 +104,7 @@ where
 }
 
 /// The G1 part of the common reference string (CRS)
+#[derive(Serialize, Deserialize)]
 pub struct SigmaG1<T> {
     alpha: T,
     beta: T,
@@ -113,6 +116,7 @@ pub struct SigmaG1<T> {
 }
 
 /// The G2 part of the common reference string (CRS)
+#[derive(Serialize, Deserialize)]
 pub struct SigmaG2<T> {
     beta: T,
     gamma: T,
@@ -121,6 +125,7 @@ pub struct SigmaG2<T> {
 }
 
 /// The proof produced by the ZKSNARK algorithm.
+#[derive(Serialize, Deserialize)]
 pub struct Proof<U, V> {
     a: U,
     b: V,
@@ -297,7 +302,6 @@ where
 
 /// Verify a given proof against the CRS and verifier inputs.
 pub fn verify<P, T, U, V, W>(
-    _qap: &QAP<P>,
     (sigmag1, sigmag2): (SigmaG1<U>, SigmaG2<V>),
     inputs: &[T],
     proof: Proof<U, V>,
@@ -418,8 +422,7 @@ mod tests {
 
             let proof = prove(&qap, (&sigmag1, &sigmag2), &weights);
 
-            assert!(verify(
-                &qap,
+            assert!(verify::<CoefficientPoly<FrLocal>, _, _, _, _>(
                 (sigmag1, sigmag2),
                 &vec![Z251::from(17), Z251::from(100)],
                 proof
@@ -450,8 +453,7 @@ mod tests {
                 c: Z251::random_elem(),
             };
 
-            if verify(
-                &qap,
+            if verify::<CoefficientPoly<FrLocal>, _, _, _, _>(
                 (sigmag1, sigmag2),
                 &vec![Z251::from(17), Z251::from(100)],
                 proof,
@@ -536,7 +538,11 @@ mod tests {
 
             let proof = prove(&qap, (&sigmag1, &sigmag2), &weights);
 
-            assert!(verify(&qap, (sigmag1, sigmag2), &vec![x, share], proof));
+            assert!(verify::<CoefficientPoly<FrLocal>, _, _, _, _>(
+                (sigmag1, sigmag2),
+                &vec![x, share],
+                proof
+            ));
         }
     }
 
@@ -610,7 +616,11 @@ mod tests {
                 c: Z251::random_elem(),
             };
 
-            if verify(&qap, (sigmag1, sigmag2), &vec![x, share], proof) {
+            if verify::<CoefficientPoly<FrLocal>, _, _, _, _>(
+                (sigmag1, sigmag2),
+                &vec![x, share],
+                proof,
+            ) {
                 count += 1;
             }
         }
@@ -679,7 +689,11 @@ mod tests {
 
             let proof = prove(&qap, (&sigmag1, &sigmag2), &weights);
 
-            assert!(verify(&qap, (sigmag1, sigmag2), &vec![x, share], proof));
+            assert!(verify::<CoefficientPoly<FrLocal>, _, _, _, _>(
+                (sigmag1, sigmag2),
+                &vec![x, share],
+                proof
+            ));
         }
     }
 
@@ -702,7 +716,11 @@ mod tests {
 
             let proof = prove(&qap, (&sigmag1, &sigmag2), &weights);
 
-            assert!(verify(&qap, (sigmag1, sigmag2), &vec![x, share], proof));
+            assert!(verify::<CoefficientPoly<FrLocal>, _, _, _, _>(
+                (sigmag1, sigmag2),
+                &vec![x, share],
+                proof
+            ));
         }
 
         // Cubic polynomial share
@@ -732,9 +750,13 @@ mod tests {
             ];
             let (sigmag1, sigmag2) = setup(&qap);
 
-            let proof = prove(&qap, (&sigmag1, &sigmag2), &weights);
+            let proof: Proof<Z251, Z251> = prove(&qap, (&sigmag1, &sigmag2), &weights);
 
-            assert!(verify(&qap, (sigmag1, sigmag2), &vec![x, share], proof));
+            assert!(verify::<CoefficientPoly<FrLocal>, _, _, _, _>(
+                (sigmag1, sigmag2),
+                &vec![x, share],
+                proof
+            ));
         }
     }
 
@@ -762,7 +784,11 @@ mod tests {
 
             let proof = prove(&qap, (&sigmag1, &sigmag2), &weights);
 
-            assert!(verify(&qap, (sigmag1, sigmag2), &vec![x, share], proof));
+            assert!(verify::<CoefficientPoly<FrLocal>, _, _, _, _>(
+                (sigmag1, sigmag2),
+                &vec![x, share],
+                proof
+            ));
         }
 
         // Cubic polynomial share
@@ -799,7 +825,11 @@ mod tests {
 
             let proof = prove(&qap, (&sigmag1, &sigmag2), &weights);
 
-            assert!(verify(&qap, (sigmag1, sigmag2), &vec![x, share], proof));
+            assert!(verify::<CoefficientPoly<FrLocal>, _, _, _, _>(
+                (sigmag1, sigmag2),
+                &vec![x, share],
+                proof
+            ));
         }
     }
 }
