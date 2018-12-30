@@ -2,8 +2,9 @@ use super::super::super::field::z251::Z251;
 use super::super::super::field::*;
 use super::RootRepresentation;
 use std::vec::IntoIter;
+use serde_derive::{Serialize, Deserialize};
 
-#[derive(Debug, PartialEq)]
+#[derive(Debug, PartialEq, Serialize, Deserialize)]
 pub struct DummyRep<F> {
     pub u: Vec<Vec<(F, F)>>,
     pub v: Vec<Vec<(F, F)>>,

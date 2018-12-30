@@ -60,12 +60,12 @@ pub trait Identity {
 /// circuit.
 #[derive(Serialize, Deserialize)]
 pub struct QAP<P> {
-    u: Vec<P>,
-    v: Vec<P>,
-    w: Vec<P>,
-    t: P,
-    input: usize,
-    degree: usize,
+    pub u: Vec<P>,
+    pub v: Vec<P>,
+    pub w: Vec<P>,
+    pub t: P,
+    pub input: usize,
+    pub degree: usize,
 }
 
 impl<R> From<R> for QAP<CoefficientPoly<Z251>>
