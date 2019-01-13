@@ -58,7 +58,7 @@ pub trait Identity {
 
 /// The Quadratic Arithmetic Program (QAP) that represents an arithmetic
 /// circuit.
-#[derive(Serialize, Deserialize, PartialEq)]
+#[derive(Serialize, Deserialize, PartialEq, Clone)]
 pub struct QAP<P> {
     pub u: Vec<P>,
     pub v: Vec<P>,
@@ -104,7 +104,7 @@ where
 }
 
 /// The G1 part of the common reference string (CRS)
-#[derive(Serialize, Deserialize, PartialEq)]
+#[derive(Serialize, Deserialize, PartialEq, Clone)]
 pub struct SigmaG1<T> {
     alpha: T,
     beta: T,
@@ -116,7 +116,7 @@ pub struct SigmaG1<T> {
 }
 
 /// The G2 part of the common reference string (CRS)
-#[derive(Serialize, Deserialize, PartialEq)]
+#[derive(Serialize, Deserialize, PartialEq, Clone)]
 pub struct SigmaG2<T> {
     beta: T,
     gamma: T,
@@ -125,7 +125,7 @@ pub struct SigmaG2<T> {
 }
 
 /// The proof produced by the ZKSNARK algorithm.
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 pub struct Proof<U, V> {
     a: U,
     b: V,

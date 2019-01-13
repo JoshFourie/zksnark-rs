@@ -49,6 +49,9 @@ mod tests {
             2.into(), // b
             4.into(), // c
         ];
+
+        println!("{:?}", assignments);
+        
         let weights = groth16::weights(code, assignments).unwrap();
 
         let (sigmag1, sigmag2) = groth16::setup(&qap);
