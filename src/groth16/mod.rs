@@ -16,6 +16,7 @@ use serde_derive::{Serialize, Deserialize};
 pub mod circuit;
 pub mod coefficient_poly;
 pub mod fr;
+pub mod fft;
 
 pub use self::circuit::weights;
 pub use self::fr::FrLocal;

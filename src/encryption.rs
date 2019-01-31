@@ -1,4 +1,4 @@
-extern crate rand;
+pub extern crate rand;
 
 use super::field::z251::Z251;
 use super::field::FieldIdentity;

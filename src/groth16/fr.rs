@@ -1,5 +1,6 @@
 
 use bn::{Fr, Group, Gt, G1, G2};
+use encryption::rand::FromEntropy;
 pub use super::*;
 use std::str::FromStr;
 use serde_derive::{Serialize, Deserialize};
@@ -88,7 +89,7 @@ impl FromStr for FrLocal {
 
 impl Random for FrLocal {
     fn random_elem() -> Self {
-        let rng = &mut rand::thread_rng();
+        let rng = &mut rand::StdRng::from_entropy();
         let mut r = Fr::random(rng);
         while r == Fr::zero() {
             r = Fr::random(rng);
