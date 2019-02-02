@@ -98,6 +98,13 @@ impl FromStr for Z251 {
     }
 }
 
+impl BitAnd for Z251 {
+    type Output=Z251;
+    fn bitand(self, rhs: Self) -> Self {
+        Z251 { inner: self.inner & rhs.inner }
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;

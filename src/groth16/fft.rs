@@ -42,8 +42,33 @@ where
 
 #[cfg(test)]
 mod tests {
+    use crate::groth16::fft::{Points, PointWise};
 
     fn pointwise_addition() {
-        
+        let Ax = PointWise::from(
+            vec![
+                Points::from( (0, 1) ),
+                Points::from( (1, 0) ),
+                Points::from( (2, 5) ),
+                Points::from( (3, 22) ),
+            ]
+        );
+        let Bx = PointWise::from(
+            vec![
+                Points::from( (0, 1) ),
+                Points::from( (1, 3) ),
+                Points::from( (2, 13) ),
+                Points::from( (3, 37) ),
+            ]
+        );
+        let Cx = PointWise::from(
+            vec![
+                Points::from( (0, 2) ),
+                Points::from( (1, 3) ),
+                Points::from( (2, 18) ),
+                Points::from( (3, 59) ),
+            ]
+        );
+        assert_eq!(Ax + Bx, Cx);
     }
 }
